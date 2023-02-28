@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+  <head th:replace="~{base :: head('css/activities.css', 'Lançamentos')}"></head>
+  <body>
+  	<header th:replace="~{base :: header}"></header>
+    <main> 
+    	<section id="wallets-container">
+   			<div class="wallet" th:each="wallet : ${wallets}">
+   				<div class="wallet-details">
+   					<div>
+   						<div><i class="fa-solid fa-wallet"></i></div>
+   						<div><h3 th:text="${wallet.description}"></h3></div>
+   					</div>
+   					<i class="fa-solid fa-eye"></i>
+   				</div>
+   				<br />
+   				<div>
+   					<p>Saldo em carteira</p>
+   					<b>
+   						<span>R$</span> <span th:text="${wallet.balance}">0,0</span>
+   					</b>
+   					
+   				</div>
+				<div>
+				</div>
+		   	</div>
+    	</section>
+		
+		<section id="activities-container">
+			<div id="activities-header">
+				<h1>Lançamentos</h1>
+			</div>
+			<div id="activities-items">
+				<h3 class>26 de Janeiro de 2023</h3>
+				<div class="activities">
+					<h3>Conta Caixa Econômica</h3>
+					<p>Salário Governo do Estado do Piauí</p>
+					<div class="activities-total">
+						<p>Total</p>
+						<p>+ R$ 3700,00</p>
+					</div>
+				</div>
+				<div class="activities">
+					<h3>Dinheiro</h3>
+					<p>Águas de Teresina</p>
+					<div class="activities-total">
+						<p>Total</p>
+						<p>- R$ 79,50</p>
+					</div>
+				</div>
+				<div class="activities">
+					<h3>Dinheiro</h3>
+					<p>Equatorial Energias</p>
+					<div class="activities-total">
+						<p>Total</p>
+						<p>- R$ 115,34</p>
+					</div>
+				</div>
+			</div>	
+		</section>	
+    </main>
+    <footer th:replace="~{base :: footer}"></footer> 
+  </body>
+</html>
+
