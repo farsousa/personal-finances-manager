@@ -1,7 +1,8 @@
-package com.farsousa.personalfinancesmanager.models;
+package com.farsousa.personalfinancesmanager.domains.entities;
 
 import com.farsousa.personalfinancesmanager.dto.WalletCreateDto;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,9 +21,13 @@ public class Wallet {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "tw_id")
 	private long id;
+	@Column(name = "tw_description")
 	private String description;
+	@Column(name = "tw_balance")
 	private double balance;
+	@Column(name = "tw_deleted")
 	private boolean deleted;	
 	
 	public Wallet(WalletCreateDto walletCreateDto) {

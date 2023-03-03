@@ -30,31 +30,28 @@
 			<div id="activities-header">
 				<h1>Lançamentos</h1>
 			</div>
-			<div id="activities-items">
-				<h3 class>26 de Janeiro de 2023</h3>
+			<div id="activities-items" th:each="activity, index : ${activities}">
+				<h3 th:if="${index.index == 0 or #arrays.isEmpty(activities) or activity.effectiveDate != activities[index.index - 1].effectiveDate}" th:text="${activity.effectiveDate}"></h3>
 				<div class="activities">
-					<h3>Conta Caixa Econômica</h3>
-					<p>Salário Governo do Estado do Piauí</p>
-					<div class="activities-total">
-						<p>Total</p>
-						<p>+ R$ 3700,00</p>
-					</div>
-				</div>
-				<div class="activities">
-					<h3>Dinheiro</h3>
-					<p>Águas de Teresina</p>
-					<div class="activities-total">
-						<p>Total</p>
-						<p>- R$ 79,50</p>
-					</div>
-				</div>
-				<div class="activities">
-					<h3>Dinheiro</h3>
-					<p>Equatorial Energias</p>
-					<div class="activities-total">
-						<p>Total</p>
-						<p>- R$ 115,34</p>
-					</div>
+					<div>
+						<img th:if="${activity.status.ordinal == 0 and activity.effectiveDate < (T(java.util.Calendar).getInstance().time)}" src="img/pendency_time_line.png" alt="pendency time line" />
+						<img th:if="${activity.status.ordinal == 1 and activity.type.ordinal == 1}" src="img/out_time_line.png" alt="out time line" />
+						<img th:if="${activity.status.ordinal == 1 and activity.type.ordinal == 0}" src="img/in_time_line.png" alt="in time line" />
+						<img th:if="${activity.status.ordinal == 0 and activity.effectiveDate > (T(java.util.Calendar).getInstance().time)}" src="img/waiting_time_line.png" alt="waiting time line" />
+					</div>		
+					<div class="activities-details">
+						<h3 th:text="${activity.description}"></h3>
+						<p th:text="${activity.wallet.description}"></p>
+						<div class="activities-total">
+							<p>Total</p>
+							<p> 
+								<span th:if="${activity.type.ordinal == 0}">+</span> 
+								<span th:if="${activity.type.ordinal == 1}">-</span> 
+								<span>R$</span> 
+								<span th:text="${activity.value}"></span> 
+							</p>
+						</div>
+					</div>							
 				</div>
 			</div>	
 		</section>	

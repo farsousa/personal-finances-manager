@@ -3,6 +3,7 @@
   	display: flex;
   	overflow-x: scroll;
   	white-space: nowrap;
+  	scroll-snap-type: x mandatory; 
 }
 
 .wallet {
@@ -59,7 +60,17 @@
 }
 
 .activities {
-	margin: 10px 20px;
+	margin: 10px 10px;
+	padding-left: 10px;
+	display: flex;
+}
+
+.activities img {
+	height: 70px;
+}
+
+.activities .activities-details {
+	width: 95%;
 }
 
 .activities .activities-total {
