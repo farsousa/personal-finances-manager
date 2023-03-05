@@ -1,0 +1,43 @@
+#activity-header {
+	display: flex;
+	align-items: center;
+}
+
+#activity-header i {
+	font-size: 4em;
+	margin-right: 20px;
+}
+
+#activity-header div h1 {
+	font-size: 2em;
+}
+
+#activity-header div h1 span {
+	font-size: 1em;
+}
+
+#activity-details div {
+	margin: 20px 0;
+}
+
+#activity-actions {
+	display: flex;
+	flex-direction: column;
+}
+
+#activity-actions p {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+#activity-actions a {
+	text-align: center;
+	background-color: green;
+	font-weight: bold;
+	color: white;
+	text-decoration: none;
+	padding: 10px 0;
+	border: none;
+	
+}
+

@@ -17,7 +17,7 @@
    				<div>
    					<p>Saldo em carteira</p>
    					<b>
-   						<span>R$</span> <span th:text="${wallet.balance}">0,0</span>
+   						<span th:text="${#numbers.formatCurrency(wallet.balance)}">0,0</span>
    					</b>
    					
    				</div>
@@ -31,28 +31,32 @@
 				<h1>Lançamentos</h1>
 			</div>
 			<div id="activities-items" th:each="activity, index : ${activities}">
-				<h3 th:if="${index.index == 0 or #arrays.isEmpty(activities) or activity.effectiveDate != activities[index.index - 1].effectiveDate}" th:text="${activity.effectiveDate}"></h3>
-				<div class="activities">
-					<div>
-						<img th:if="${activity.status.ordinal == 0 and activity.effectiveDate < (T(java.util.Calendar).getInstance().time)}" src="img/pendency_time_line.png" alt="pendency time line" />
-						<img th:if="${activity.status.ordinal == 1 and activity.type.ordinal == 1}" src="img/out_time_line.png" alt="out time line" />
-						<img th:if="${activity.status.ordinal == 1 and activity.type.ordinal == 0}" src="img/in_time_line.png" alt="in time line" />
-						<img th:if="${activity.status.ordinal == 0 and activity.effectiveDate > (T(java.util.Calendar).getInstance().time)}" src="img/waiting_time_line.png" alt="waiting time line" />
-					</div>		
-					<div class="activities-details">
-						<h3 th:text="${activity.description}"></h3>
-						<p th:text="${activity.wallet.description}"></p>
-						<div class="activities-total">
-							<p>Total</p>
-							<p> 
-								<span th:if="${activity.type.ordinal == 0}">+</span> 
-								<span th:if="${activity.type.ordinal == 1}">-</span> 
-								<span>R$</span> 
-								<span th:text="${activity.value}"></span> 
-							</p>
-						</div>
-					</div>							
-				</div>
+				<h3 th:if="${index.index == 0 or #arrays.isEmpty(activities) or activity.effectiveDate != activities[index.index - 1].effectiveDate}"  th:text="${#dates.format(activity.effectiveDate, 'dd/MM/yyyy')}"></h3>
+				<a th:href="@{activities/detail/} + ${activity.id}">
+					<div class="activities">
+						
+							<div>
+								<img th:if="${activity.status.ordinal == 0 and activity.effectiveDate < (T(java.util.Calendar).getInstance().time)}" src="img/pendency_time_line.png" alt="pendency time line" />
+								<img th:if="${activity.status.ordinal == 1 and activity.type.ordinal == 1}" src="img/out_time_line.png" alt="out time line" />
+								<img th:if="${activity.status.ordinal == 1 and activity.type.ordinal == 0}" src="img/in_time_line.png" alt="in time line" />
+								<img th:if="${activity.status.ordinal == 0 and activity.effectiveDate > (T(java.util.Calendar).getInstance().time)}" src="img/waiting_time_line.png" alt="waiting time line" />
+							</div>		
+							<div class="activities-details">
+								<h3 th:text="${activity.description}"></h3>
+								<p th:text="${activity.wallet.description}"></p>
+								<div class="activities-total">
+									<p>Total</p>
+									<p> 
+										<span th:if="${activity.type.ordinal == 0}">+</span> 
+										<span th:if="${activity.type.ordinal == 1}">-</span> 
+										<span th:text="${#numbers.formatCurrency(activity.value)}"></span> 
+									</p>
+								</div>
+							</div>	
+						
+												
+					</div>
+				</a>
 			</div>	
 		</section>	
     </main>

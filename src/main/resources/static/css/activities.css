@@ -59,6 +59,11 @@
 	text-align: center;
 }
 
+#activities-items a {
+	text-decoration: none;
+	color: black;
+}
+
 .activities {
 	margin: 10px 10px;
 	padding-left: 10px;

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+  <head th:replace="~{base :: head('css/activity.css', 'Lançamento')}"></head>
+  <body>
+  	<header th:replace="~{base :: header}"></header>
+    <main> 
+    	<section id="activity-header">
+    		<i class="fa-solid fa-wallet"></i>
+    		<div>
+    			<h1>Lançamento via <span th:text="${activity.wallet.description}"></span> </h1>
+    			<p>Identificação: <span th:text="${activity.id}"></span></p>
+    			<p>Data: <span th:text="${#dates.format(activity.forecastDate, 'dd/MM/yyyy')}"></span></p>
+    		</div>
+    	</section>
+    	<section id="activity-details">
+    		<div>
+    			<h1>Descrição: </h1>
+    			<p th:text="${activity.description}"></p>
+    		</div>
+    		<div>
+    			<h1>Tipo: </h1>
+    			<p th:text="${activity.type}"></p>
+    		</div>
+    		<div>
+    			<h1>Status: </h1>
+    			<p><span th:text="${activity.status}"></span> <span th:if="${activity.status.ordinal == 1}"> em <span th:text="${#dates.format(activity.effectiveDate, 'dd/MM/yyyy')}"></span></span> </p>
+    		</div>
+    		<div>
+    			<h1>Valor: </h1>
+    			<p><span th:text="${#numbers.formatCurrency(activity.value)}"></span></p>
+    		</div>
+    	</section>
+    	<section id="activity-actions">
+    		<p th:if="${activity.status.ordinal == 1}">Não existe ações para este lançamento.</p>
+    		<p th:if="${activity.status.ordinal == 0 and activity.effectiveDate < (T(java.util.Calendar).getInstance().time)}"> Este lançamento está em atraso.</p>
+    		<a th:if="${activity.status.ordinal == 0}" th:href="@{/activities/changeStatus/} + ${activity.id}" th:text="Confirmar + ' ' +${activity.type}">Confirmar</a>
+    	</section>
+    	
+    </main>
+    <footer th:replace="~{base :: footer}"></footer> 
+  </body>
+</html>
+
