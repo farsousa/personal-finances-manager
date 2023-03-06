@@ -1,0 +1,91 @@
+<head th:fragment="head(ulrCssPagina, title)">
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments.css}">
+    <link rel="stylesheet" th:href="@{/} + ${ulrCssPagina}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">	
+	<script src="https://kit.fontawesome.com/63f7b676c0.js" crossorigin="anonymous"></script>
+	<title th:text="${title}"></title>
+</head>
+
+<div th:fragment="page-header">
+	<header id="page-header">
+		<h1>Logo</h1>
+	</header>  	
+</div>
+
+<div th:fragment="page-footer">
+	<footer id="page-footer">
+		<a href="#">
+			<i class="fa-solid fa-home"></i>
+			<span>Início</span>
+		</a>
+		<a href="#">
+			<i class="fa-solid fa-wallet"></i>
+			<span>Carteiras</span>
+		</a>
+		<a href="/activities">
+			<i id="middle" class="fa-solid fa-money-bill"></i>
+			<span>Movimentações</span>
+		</a>
+		<a href="#">
+			<i class="fa-solid fa-user"></i>
+			<span>Perfil</span>
+		</a>
+		<a href="#">
+			<i class="fa-solid fa-right-from-bracket"></i>
+			<span>Sair</span>
+		</a>  			
+	</footer>
+</div>
+
+<div th:fragment="wallet-card(wallet)">
+	<div class="wallet-card">
+		<div>
+			<div>
+				<i class="fa-solid fa-wallet"></i>
+ 				<span>
+ 					<b th:text="${wallet.description}"></b>
+ 				</span>
+ 			</div>
+ 			<div class="wallet-card-actions">
+ 				<i class="fa-solid fa-eye"></i>
+ 				<form class="walletDeleteForm" th:action="@{/wallets/delete}" method="POST">
+    				<input type="hidden" name="id" id="id" th:value="${wallet.id}" />
+    				<button type="submit">
+    					<i class="fa fa-trash" th:onclick="walletDeleteForm.submit()"></i> 
+    				</button>
+    				
+    			</form>  
+ 			</div>
+		</div>
+		<div>
+			<p>Saldo em carteira</p>
+   			<p>
+   				<b th:text="${#numbers.formatCurrency(wallet.balance)}"></b>
+   			</p>  
+		</div> 					
+   	</div>
+</div>
+
+<div th:fragment="wallet-form">
+	<div id="wallet-form">
+		<form action="/wallets/create" method="POST">
+   			<div class="fields">
+   				<label for="description">Descrição</label>
+    			<input type="text" id="description" name="description" placeholder="Ex: Dinheiro"/>
+   			</div>
+   			<div class="fields">
+   				<label for="balance">Saldo</label>
+    			<input type="number" step="0.01" min="0.01" id="balance" name="balance" placeholder="Ex: 250,00" />
+   			</div>    			
+   			<input type="submit" value="Criar" />
+   		</form>
+	</div>
+</div>
+
+
+

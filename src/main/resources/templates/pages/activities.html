@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+  <head th:replace="~{fragments :: head('css/activities.css', 'Movimentações')}"></head>
+  <body>
+  	<header th:replace="~{fragments :: page-header}"></header>
+    <main>     	
+    	<section id="wallets-container">
+    		<div id="wallet-container-card">
+    			<div class="wallet" th:each="wallet : ${wallets}">
+	   				<div th:replace="~{fragments :: wallet-card(${wallet})}"></div>
+			   	</div>
+			   	<div class="wallet-plus" onclick="openDialog('wallet-container-form')">
+			   		<div>
+			   			<i class="fa-solid fa-plus"></i>
+			   		</div>		   		
+			   	</div>
+    		</div>
+    		<div id="wallet-container-form" style="display:none;">
+    			<div id="wallet-container-form-exit" onclick="closeDialog('wallet-container-form')">
+    				<i class="fa-solid fa-x"></i>
+    			</div>
+    			<div th:replace="~{fragments :: wallet-form}"></div>
+    		</div >   			
+    	</section>
+    	
+    	
+		
+		<section id="activities-container">
+			<div id="activities-header">
+				<h1>Movimentações</h1>
+			</div>
+			<div id="activities-items" th:each="activity, index : ${activities}">
+				<h3 th:if="${index.index == 0 or #arrays.isEmpty(activities) or activity.effectiveDate != activities[index.index - 1].effectiveDate}"  th:text="${#dates.format(activity.effectiveDate, 'dd/MM/yyyy')}"></h3>
+				<a th:href="@{activities/detail/} + ${activity.id}">
+					<div class="activities">						
+						<div>
+							<img th:if="${activity.status.ordinal == 0 and activity.effectiveDate < (T(java.util.Calendar).getInstance().time)}" src="img/pendency_time_line.png" alt="pendency time line" />
+							<img th:if="${activity.status.ordinal == 1 and activity.type.ordinal == 1}" src="img/out_time_line.png" alt="out time line" />
+							<img th:if="${activity.status.ordinal == 1 and activity.type.ordinal == 0}" src="img/in_time_line.png" alt="in time line" />
+							<img th:if="${activity.status.ordinal == 0 and activity.effectiveDate > (T(java.util.Calendar).getInstance().time)}" src="img/waiting_time_line.png" alt="waiting time line" />
+						</div>		
+						<div class="activities-details">
+							<h3 th:text="${activity.description}"></h3>
+							<p th:text="${activity.wallet.description}"></p>
+							<div class="activities-total">
+								<p>Total</p>
+								<p> 
+									<span th:if="${activity.type.ordinal == 0}">+</span> 
+									<span th:if="${activity.type.ordinal == 1}">-</span> 
+									<span th:text="${#numbers.formatCurrency(activity.value)}"></span> 
+								</p>
+							</div>
+						</div>													
+					</div>
+				</a>
+			</div>	
+		</section>	
+		<section id="activity-plus">
+			<i onclick="openDialog('dialog-container')" class="fa-solid fa-plus"></i>			
+		</section>
+		<section id="activity-form">		
+			<div id="overlay" class="overlay" style="display:none;"></div>
+			<div id="dialog-container" class="dialog-container" style="display:none;">
+				<form action="">
+					<label>Tipo: </label>
+					<div id="chip-type">
+						<span class="chip" onclick="selectChip(this)">Entrada</span>
+						<span class="chip" onclick="selectChip(this)">Saída</span>
+					</div>					
+					<label>Descrição:</label>
+					<input type="text" name="description" id="description" placeholder="Ex: Aluguel fevereiro">
+					<label>Valor:</label>
+					<input type="number" step="0.01" min="0.01" name="balance" id="balance" placeholder="Ex: 1200,00">
+					<label>Carteira:</label>
+					<div id="chip-wallet">
+						<span class="chip" th:each="wallet : ${wallets}" th:text="${wallet.description}" onclick="selectChip(this)"></span>
+					</div>	
+					<label>Data:</label>
+					<input type="date" name="date" id="date">
+					<label>Situação:</label>
+					<div id="chip-status">
+						<span class="chip" onclick="selectChip(this)">Pendente</span>
+						<span class="chip" onclick="selectChip(this)">Efetuado</span>
+					</div>	
+					<button type="submit">Lançar</button>
+					<button onclick="closeDialog()">Fechar</button>
+				</form>
+			</div>
+		</section>
+    </main>
+    <footer th:replace="~{fragments :: page-footer}"></footer> 
+    
+    <script th:src="@{/js/activities.js}"></script>
+  </body>
+</html>
+

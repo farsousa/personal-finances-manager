@@ -25,28 +25,33 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "tab_activity")
 @Entity(name = "Activity")
-public class Activity {
-	
+public class Activity {	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ta_id")
 	private Long id;
+	
 	@Column(name = "ta_description")
 	private String description;
+	
 	@Column(name = "ta_value")
 	private Double value;
+	
 	@Column(name = "ta_effective_date")
 	private Date effectiveDate;
+	
 	@Column(name = "ta_forecast_date")
 	private Date forecastDate;
+	
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "ta_status")
 	private ActivityStatus status;
+	
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "ta_type")
 	private ActivityType type;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ta_tw_id", referencedColumnName = "tw_id")
 	private Wallet wallet;
-
 }

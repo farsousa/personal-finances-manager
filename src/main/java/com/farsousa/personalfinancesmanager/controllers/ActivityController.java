@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.farsousa.personalfinancesmanager.domains.entities.Activity;
@@ -38,7 +37,7 @@ public class ActivityController {
 		List<Activity> activities = activityRepository.findByEffectiveDateMonth(new Date());
 		model.addAttribute("activities", activities);	
 		
-		return "activities";
+		return "pages/activities";
 	}
 	
 	
@@ -47,12 +46,12 @@ public class ActivityController {
 		Optional<Activity> activity = activityRepository.findById(id);
 		
 		if(activity.isEmpty()) {
-			return "activities";
+			return "pages/activities";
 		}
 		
 		model.addAttribute("activity", activity.get());
 		
-		return "activity";
+		return "pages/activity";
 	}
 	
 	@GetMapping("changeStatus/{id}")
@@ -61,7 +60,7 @@ public class ActivityController {
 		Optional<Activity> activity = activityRepository.findById(id);
 		
 		if(activity.isEmpty()) {
-			return "activities";
+			return "pages/activities";
 		}
 		
 		activity.get().setStatus(ActivityStatus.Efetuado);
@@ -70,7 +69,7 @@ public class ActivityController {
 		
 		model.addAttribute("activity", activity.get());
 		
-		return "activity";
+		return "pages/activity";
 	}
 
 }

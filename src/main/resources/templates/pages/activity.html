@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="pt-br">
-  <head th:replace="~{base :: head('css/activity.css', 'Lançamento')}"></head>
+  <head th:replace="~{fragments :: head('css/activity.css', 'Lançamento')}"></head>
   <body>
-  	<header th:replace="~{base :: header}"></header>
+  	<header th:replace="~{fragments :: page-header}"></header>
     <main> 
     	<section id="activity-header">
     		<i class="fa-solid fa-wallet"></i>
@@ -31,13 +31,13 @@
     		</div>
     	</section>
     	<section id="activity-actions">
-    		<p th:if="${activity.status.ordinal == 1}">Não existe ações para este lançamento.</p>
+    		<p th:if="${activity.status.ordinal == 1}">Não existem ações para este lançamento.</p>
     		<p th:if="${activity.status.ordinal == 0 and activity.effectiveDate < (T(java.util.Calendar).getInstance().time)}"> Este lançamento está em atraso.</p>
     		<a th:if="${activity.status.ordinal == 0}" th:href="@{/activities/changeStatus/} + ${activity.id}" th:text="Confirmar + ' ' +${activity.type}">Confirmar</a>
     	</section>
     	
     </main>
-    <footer th:replace="~{base :: footer}"></footer> 
+    <footer th:replace="~{fragments :: page-footer}"></footer> 
   </body>
 </html>
 
