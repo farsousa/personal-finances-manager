@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.farsousa.personalfinancesmanager.domains.enumarations.ActivityStatus;
 import com.farsousa.personalfinancesmanager.domains.enumarations.ActivityType;
+import com.farsousa.personalfinancesmanager.dto.ActivityCreateDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -54,4 +55,5 @@ public class Activity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ta_tw_id", referencedColumnName = "tw_id")
 	private Wallet wallet;
+	
 }

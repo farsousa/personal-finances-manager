@@ -52,9 +52,6 @@
 }
 
 
-/* --------------------------------------------------
-                      WALLET CARD
--------------------------------------------------- */
 .wallet-card {  	
   	display: flex;
   	flex-direction: column;
@@ -94,16 +91,215 @@
 }
 
 
-/* --------------------------------------------------
-                      WALLET FORM
--------------------------------------------------- */
+/*
+AQUI
+*/
+
+#wallet-form, #activity-form {
+	display: flex;
+	flex-direction: column;
+}
+
+.title h1 {
+	text-align: center;
+	font-size: 1.3em;
+	margin-bottom: 10x;
+}
+
+.fields {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 10px;
+}
+
+.fields label {
+	font-weight: bold;
+}
+
+.fields input {
+	border-radius: 4px;
+	border-width: 0;
+	height: 30px;
+	box-shadow: 0px 0px 1px 0px;
+	padding: 0 10px;
+}
+
+#activity-form input[type="submit"], #wallet-form input[type="submit"] {
+	height: 30px;
+	color: #fff;
+	background-color: #0000bb;
+	border-radius: 4px;
+	border-width: 0;
+	box-shadow: 0px 0px 1px 0px;
+	width: 100%;
+	cursor: pointer;
+}
+
+#activity-form input[type="date"] {
+	width: 80%;
+	background-color: #fff;
+}
+
+.fields .chip {
+	display: inline-block;
+	padding: 5px 10px;
+	border-radius: 10px;
+	border: 0;
+	background-color: #fff;
+	cursor: pointer;
+	box-shadow: 0px 0px 1px 0px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+}
+
+.fields .chip.selected {
+	background-color: #007bff;
+	color: #fff;
+}
+
+.fields #chip-activity-type, .fields #chip-activity-wallet, .fields #chip-activity-status {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.fields #radio-activity-type, .fields #radio-activity-wallet, .fields #radio-activity-status {
+	display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+#wallet-container-card {
+	display: flex;
+	align-items: center;
+	overflow-x: scroll;
+	white-space: nowrap;
+	scroll-snap-type: x mandatory;
+	margin-bottom: 20px;
+}
+
+#wallet-container-card .wallet-plus div:first-child {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: #f5f5f5;
+}
+
+#wallet-container-card .wallet-plus div:first-child i {
+	font-size: 1.3em;
+}
+
+#wallet-container-form {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 5px;
+	z-index: 1000;
+	width: 80%;
+	max-width: 560px;
+}
+
+#wallet-container-form #wallet-container-form-exit {
+	display: flex;
+	justify-content: flex-end;
+}
+
+#wallet-container-form #wallet-container-form-exit i {
+	width: 5px;
+	height: 5px;
+}
+
+#activity-form form {
+	display: flex;
+	flex-direction: column;
+}
+
+#activity-form form #chip-wallet {
+	display: flex;
+	overflow-x: scroll;
+	white-space: nowrap;
+	flex-wrap: wrap;
+}
+
+#activity-form form .fields {
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+#activity-form form label {
+	font-weight: bold;
+}
+
+#activity-form form input {
+	border-radius: 4px;
+	border-width: 1px;
+	height: 40px;
+}
+
+#activity-form form input[type="text"], #activity-form form input[type="number"],
+	#activity-form form input[type="date"] {
+	padding: 0 20px;
+}
+
+#activity-form form input[type="radio"] {
+	display: none;
+}
+
+#activity-form form button {
+	background-color: green;
+	color: white;
+	cursor: pointer;
+	font-weight: bold;
+	border-radius: 4px;
+	border-width: 1px;
+	height: 40px;
+	margin-bottom: 10px;
+}
+
+.chip {
+	display: inline-block;
+	padding: 5px 10px;
+	border-radius: 20px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	cursor: pointer;
+}
+
+.chip.selected {
+	background-color: #007bff;
+	color: #fff;
+}
+
 #wallet-form {
 	border-radius: 8px;
 	padding: 20px;
 	margin-bottom: 20px;
 }
 
-#wallet-form > i {
+#wallet-form>i {
 	margin-bottom: 20px;
 	cursor: pointer;
 }
@@ -129,7 +325,8 @@
 	height: 40px;
 }
 
-#wallet-form form input[type="text"], #wallet-form form input[type="number"]{
+#wallet-form form input[type="text"], #wallet-form form input[type="number"]
+	{
 	padding: 0 20px;
 }
 
@@ -140,6 +337,65 @@
 	font-weight: bold;
 }
 
-#wallet-form form small{
+#wallet-form form small {
 	color: #ff0000;
 }
+ 
+#activity-form form {
+	display: flex;
+	flex-direction: column;
+}
+
+#activity-form form #chip-wallet {
+	display: flex;
+	overflow-x: scroll;
+	white-space: nowrap;
+	flex-wrap: wrap;
+}
+
+#activity-form form .fields {
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+#activity-form form label {
+	font-weight: bold;
+}
+
+#activity-form form input {
+	border-radius: 4px;
+	border-width: 1px;
+	height: 40px;
+}
+
+#activity-form form input[type="text"], #activity-form form input[type="number"],
+	#activity-form form input[type="date"] {
+	padding: 0 20px;
+}
+
+#activity-form form input[type="radio"] {
+	display: none;
+}
+
+#activity-form form input[type="submit"] {
+	background-color: green;
+	color: white;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.chip {
+	display: inline-block;
+	padding: 5px 10px;
+	border-radius: 20px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	cursor: pointer;
+}
+
+.chip.selected {
+	background-color: #007bff;
+	color: #fff;
+}
+*/

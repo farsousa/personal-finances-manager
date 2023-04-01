@@ -8,6 +8,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">	
 	<script src="https://kit.fontawesome.com/63f7b676c0.js" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="/js/fragments.js"></script>
 	<title th:text="${title}"></title>
 </head>
 
@@ -72,19 +73,72 @@
 </div>
 
 <div th:fragment="wallet-form">
-	<div id="wallet-form">
-		<form action="/wallets/create" method="POST">
-   			<div class="fields">
-   				<label for="description">Descrição</label>
-    			<input type="text" id="description" name="description" placeholder="Ex: Dinheiro"/>
-   			</div>
-   			<div class="fields">
-   				<label for="balance">Saldo</label>
-    			<input type="number" step="0.01" min="0.01" id="balance" name="balance" placeholder="Ex: 250,00" />
-   			</div>    			
-   			<input type="submit" value="Criar" />
-   		</form>
-	</div>
+	<form id="wallet-form" action="/wallets/create" method="POST">
+		<div class="title">
+			<h1>Adicionar Carteira</h1>
+		</div>
+		<div class="fields">
+			<label for="wallet-description">Descrição</label>
+			<input type="text" id="wallet-description" name="description" placeholder="Ex: Dinheiro"/>
+		</div>
+		<div class="fields">
+			<label for="wallet-balance">Saldo</label>
+			<input type="number" step="0.01" min="0.01" id="wallet-balance" name="balance" placeholder="Ex: 250,00" />
+		</div>    			
+		<input type="submit" value="Criar" />
+	</form>
+</div>
+
+<div th:fragment="activity-form(wallets)">
+	<form id="activity-form" action="/activities/create" method="post">
+		<div class="title">
+			<h1>Adicionar Atividades</h1>
+		</div>
+		<div class="fields">
+			<label for="activity-type">Tipo: </label>
+			<div id="chip-activity-type">
+				<span class="chip" onclick="selectChip(this, 'activity-type-0')">Entrada</span>
+				<span class="chip" onclick="selectChip(this, 'activity-type-1')">Saída</span>
+			</div>
+			<div id="radio-activity-type">
+				<input type="radio" id="activity-type-0" name="type" value="0">
+				<input type="radio" id="activity-type-1" name="type" value="1">
+			</div>			
+		</div>
+		<div class="fields">
+			<label for="activity-description">Descrição:</label>
+			<input type="text" name="description" id="activity-description" placeholder="Ex: Aluguel fevereiro">
+		</div>
+		<div class="fields">
+			<label for="activity-value">Valor:</label>
+			<input type="number" step="0.01" min="0.01" name="value" id="activity-value" placeholder="Ex: 1200,00">
+		</div>
+		<div class="fields">
+			<label for="activity-wallet">Carteira:</label>
+			<div id="chip-activity-wallet">
+				<span class="chip" th:each="wallet : ${wallets}" th:text="${wallet.description}" th:onclick="selectChip(this, 'activity-wallet-[[${wallet.id}]]')"></span>
+			</div>	
+			<div id="radio-activity-wallet">
+				<input type="radio" th:each="wallet : ${wallets}" th:id="'activity-wallet-' + ${wallet.id}" name="walletId" th:value="${wallet.id}">
+			</div>
+		</div>
+		<div class="fields">
+			<label for="activity-date">Data:</label>
+			<input type="date" name="date" id="activity-date" placeholder="dd/mm/aaaa">
+		</div>
+		<div class="fields">
+			<label for="activity-status">Situação:</label>
+			<div id="chip-activity-status">
+				<span class="chip" onclick="selectChip(this, 'activity-status-0')">Pendente</span>
+				<span class="chip" onclick="selectChip(this, 'activity-status-1')">Efetuado</span>
+			</div>	
+			<div id="radio-activity-status">
+				<input type="radio" id="activity-status-0" name="status" value="0">
+				<input type="radio" id="activity-status-1" name="status" value="1">
+			</div>			
+		</div>
+		<input type="submit" value="Lançar" />
+	</form>
 </div>
 
 

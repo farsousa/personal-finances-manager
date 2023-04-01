@@ -12,6 +12,8 @@ import com.farsousa.personalfinancesmanager.dto.WalletCreateDto;
 import com.farsousa.personalfinancesmanager.dto.WalletDeleteDto;
 import com.farsousa.personalfinancesmanager.repositories.WalletRepository;
 
+import jakarta.transaction.Transactional;
+
 @RequestMapping("wallets")
 @Controller
 public class WalletController {
@@ -20,17 +22,30 @@ public class WalletController {
 	private WalletRepository walletRepository;	
 	
 	@PostMapping("create")
-	public String create(WalletCreateDto walletCreateDto, Model model) {		
-		Wallet wallet = new Wallet(walletCreateDto);
-		walletRepository.save(wallet);			
+	@Transactional
+	public String create(WalletCreateDto walletCreateDto, Model model) {	
+		Wallet wallet = walletRepository.findByDescription(walletCreateDto.description());
+		
+		if(wallet != null) {
+			wallet.setBalance(walletCreateDto.balance());
+			wallet.setDeleted(false);
+		}else {
+			wallet.setBalance(walletCreateDto.balance());
+			wallet.setDeleted(false);
+			wallet.setDescription(walletCreateDto.description());
+			walletRepository.save(wallet);
+		}
+		
 		return "redirect:/activities";
 	}
 	
 	@PostMapping("delete")
+	@Transactional
 	public String delete(WalletDeleteDto walletDeleteDto, Model model) {
 		Optional<Wallet> wallet = walletRepository.findById(walletDeleteDto.id());
 		if(!wallet.isEmpty()) {
-			walletRepository.delete(wallet.get());
+			wallet.get().setDeleted(true);
+			wallet.get().setBalance(0);
 		}
 		return "redirect:/activities";
 	}
